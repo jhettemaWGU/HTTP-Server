@@ -21,7 +21,6 @@ public class Main {
        clientSocket.getOutputStream().write(
                "HTTP/1.1 200 OK \r\n\r\n".getBytes());
 
-       )
      } catch (IOException e) {
        System.out.println("IOException: " + e.getMessage());
      }
