@@ -19,7 +19,6 @@ public class Main {
        System.out.println(line);
        String[] HttpRequest = line.split(" ", 0);
        OutputStream output = clientSocket.getOutputStream();
-       output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
          if (HttpRequest[1].equals("/")) {
            output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
          } else {
