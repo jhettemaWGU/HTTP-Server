@@ -20,13 +20,22 @@ public class Main {
        String[] HttpRequest = line.split(" ");
        OutputStream output = clientSocket.getOutputStream();
        String requestPath = HttpRequest[1];
+       String userAgent = null;
 
        if (requestPath.equals("/")) {
          output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+         if (requestPath.startsWith("/user-agent")) {
+           while ((line = reader.readLine()) != null && !line.isEmpty()) {
+             System.out.println(line);
+
+             if (line.startsWith("User-Agent: ")) {
+               userAgent = line.substring("User-Agent: ".length()).trim();
+               break;
+             }
+           }
+         }
        } else if (requestPath.startsWith("/echo/")) {
          String echoString = requestPath.substring("/echo/".length());
-
-
          output.write("HTTP/1.1 200 OK\r\n".getBytes());
          output.write("Content-Type: text/plain\r\n".getBytes());
          String lengthParam = "Content-Length: " + echoString.length() + "\r\n";
@@ -37,36 +46,15 @@ public class Main {
          output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
        }
 
-       String userAgent = null;
-       boolean isUserAgentRequest = false;
-       String requestLine = line;
-       if (requestLine != null && requestLine.startsWith("GET /user-agent")) {
-         isUserAgentRequest = true;
-       }
-
-       if (isUserAgentRequest) {
-         while ((line = reader.readLine()) != null && !line.isEmpty()) {
-           System.out.println(line);
-
-           if (line.startsWith("User-Agent: ")) {
-             userAgent = line.substring("User-Agent: ".length()).trim();
-             break;
-           }
-         }
-       }
-
-       if (isUserAgentRequest && userAgent != null) {
+       if (userAgent != null) {
          String httpResponse =
                  "HTTP/1.1 200 OK\r\n" +
                  "Content-Type: text/plain\r\n" +
                  "Content-Length: " + userAgent.length() + "\r\n\r\n" +
                  userAgent;
          output.write(httpResponse.getBytes());
-       } else if (isUserAgentRequest) {
-         String httpResponse = "HTTP/1.1 400 Bad Request\r\n\r\nUser-Agent header missing\r\n";
-         output.write(httpResponse.getBytes());
        } else {
-         String httpResponse = "HTTP/1.1 404 Not Found\r\n\r\n";
+         String httpResponse = "HTTP/1.1 400 Bad Request\r\n\r\nUser-Agent header missing\r\n";
          output.write(httpResponse.getBytes());
        }
        clientSocket.close();
