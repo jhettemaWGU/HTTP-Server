@@ -21,7 +21,9 @@ public class Main {
        OutputStream output = clientSocket.getOutputStream();
        String requestPath = HttpRequest[1];
 
-       if (requestPath.startsWith("/echo/")) {
+       if (requestPath.equals("/")) {
+         output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+       } else if (requestPath.startsWith("/echo/")) {
          String echoString = requestPath.substring("/echo/".length());
 
 
