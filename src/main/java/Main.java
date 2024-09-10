@@ -25,7 +25,7 @@ public class Main {
          String echoString = requestPath.substring("/echo/".length());
 
          output.write("HTTP/1.1 200 OK\r\n".getBytes());
-         output.write("Content-Type: text/plaing\r\n".getBytes());
+         output.write("Content-Type: text/plain\r\n".getBytes());
          output.write("Content-Length: " + echoString.length() + "\r\n".getBytes());
          output.write("\r\n".getBytes());
          output.write(echoString.getBytes());
