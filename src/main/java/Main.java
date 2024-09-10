@@ -37,7 +37,7 @@ public class Main {
          output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
        }
 
-       BufferedReader reader = new BufferedReader(new InputStream(clientSocket.getInputStream()));
+       reader = new BufferedReader(new InputStream(clientSocket.getInputStream()));
        String line;
        String userAgent = null;
        boolean isUserAgentRequest = false;
