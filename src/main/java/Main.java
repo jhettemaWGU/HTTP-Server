@@ -24,16 +24,7 @@ public class Main {
 
        if (requestPath.equals("/")) {
          output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-         if (requestPath.startsWith("/user-agent")) {
-           while ((line = reader.readLine()) != null && !line.isEmpty()) {
-             System.out.println(line);
 
-             if (line.startsWith("User-Agent: ")) {
-               userAgent = line.substring("User-Agent: ".length()).trim();
-               break;
-             }
-           }
-         }
        } else if (requestPath.startsWith("/echo/")) {
          String echoString = requestPath.substring("/echo/".length());
          output.write("HTTP/1.1 200 OK\r\n".getBytes());
@@ -42,6 +33,15 @@ public class Main {
          output.write(lengthParam.getBytes());
          output.write("\r\n".getBytes());
          output.write(echoString.getBytes());
+       } else if (requestPath.startsWith("/user-agent")) {
+         while ((line = reader.readLine()) != null && !line.isEmpty()) {
+           System.out.println(line);
+
+           if (line.startsWith("User-Agent: ")) {
+             userAgent = line.substring("User-Agent: ".length()).trim();
+             break;
+           }
+         }
        } else {
          output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
        }
