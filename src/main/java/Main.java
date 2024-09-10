@@ -19,13 +19,6 @@ public class Main {
 
      } catch (IOException e) {
        System.out.println("IOException: " + e.getMessage());
-     } finally {
-       try {
-         if (serverSocket != null) serverSocket.close();
-         if (clientSocket != null) clientSocket.close();
-       } catch (IOException e) {
-         System.out.println("Error closing sockets: " + e.getMessage());
-       }
      }
   }
 
