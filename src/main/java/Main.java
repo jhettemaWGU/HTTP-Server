@@ -45,7 +45,7 @@ public class Main {
        }
 
        if (isUserAgentRequest) {
-         while ((line reader.readLine()) != null && !line.isEmpty()) {
+         while ((line = reader.readLine()) != null && !line.isEmpty()) {
            System.out.println(line);
 
            if (line.startsWith("User-Agent: ")) {
