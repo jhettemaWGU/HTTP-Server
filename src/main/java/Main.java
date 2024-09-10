@@ -24,9 +24,11 @@ public class Main {
        if (requestPath.startsWith("/echo/")) {
          String echoString = requestPath.substring("/echo/".length());
 
+
          output.write("HTTP/1.1 200 OK\r\n".getBytes());
          output.write("Content-Type: text/plain\r\n".getBytes());
-         output.write("Content-Length: " + echoString.length() + "\r\n".getBytes());
+         String lengthParam = "Content-Length: " + echoString.length() + "\r\n";
+         output.write(lengthParam.getBytes());
          output.write("\r\n".getBytes());
          output.write(echoString.getBytes());
        } else {
