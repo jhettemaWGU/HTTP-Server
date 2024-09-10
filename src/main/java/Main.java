@@ -37,17 +37,15 @@ public class Main {
          output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
        }
 
-       reader = new BufferedReader(new InputStream(input));
-       line = reader.readLine();
        String userAgent = null;
        boolean isUserAgentRequest = false;
-       String requestLine = reader.readLine();
+       String requestLine = line;
        if (requestLine != null && requestLine.startsWith("GET /user-agent")) {
          isUserAgentRequest = true;
        }
 
        if (isUserAgentRequest) {
-         while (line != null && !line.isEmpty()) {
+         while ((line reader.readLine()) != null && !line.isEmpty()) {
            System.out.println(line);
 
            if (line.startsWith("User-Agent: ")) {
